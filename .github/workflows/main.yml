@@ -1,0 +1,25 @@
+name: CI
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Run a one-line script
+      run: echo "Hello, world from my first CI pipeline!"
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install linters
+      run: pip install flake8 bandit
+
+    - name: Run flake8 (style linter)
+      run: flake8 .
+
+    - name: Run Bandit (security linter)
+      run: bandit -r .
